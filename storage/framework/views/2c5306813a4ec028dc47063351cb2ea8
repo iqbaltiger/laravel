@@ -1,0 +1,64 @@
+<?php $__env->startSection('content'); ?>
+<div class="col-md-3">
+
+</div>
+
+<div class="col-md-6">
+    <?php if(Session::has('success')): ?>
+    <div class="alert alert-success">
+        <h2><?php echo e(Session::get('success')); ?></h2>
+    </div>
+<?php endif; ?>
+     <center><h2>Student Registration Form</h2></center>
+     <form method="POST" action="/student-registration" id="register_student" novalidate>
+        <?php echo csrf_field(); ?>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name:</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Name" name="name" value="<?php echo e(old('name')); ?>">
+             <?php if($errors->has('name')): ?> <p class="text-danger"><?php echo e($errors->first('name')); ?></p> <?php endif; ?>
+        </div>
+        
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email:</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="<?php echo e(old('email')); ?>" name="email">
+             <?php if($errors->has('email')): ?> <p class="text-danger"><?php echo e($errors->first('email')); ?></p> <?php endif; ?>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Gender:</label>
+            <label class="radio-inline">
+                <input type="radio" name="gender" id="inlineRadio1" value="male">Male
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="gender" id="inlineRadio1" value="female">Female
+            </label>
+        </div> 
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Phone No:</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Phone No" name="phone_number">
+            <?php if($errors->has('phone_number')): ?> <p class="text-danger"><?php echo e($errors->first('phone_number')); ?></p> <?php endif; ?>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+            <?php if($errors->has('password')): ?> <p class="text-danger"><?php echo e($errors->first('password')); ?></p> <?php endif; ?>
+        </div>
+        
+        <div class="form-group">
+            <label for="exampleInputPassword1">Confirm Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password" name="password_confirmation">
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
+
+<div class="col-md-3">
+
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

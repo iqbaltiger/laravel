@@ -229,6 +229,17 @@ class RegistrationController extends Controller {
        return Redirect::to('student-registration');
     }
     
+    /**
+     * To Save Admin Data
+     * 
+     * @return, the Success message after successful insertion.
+     * 
+     * 
+     * **/
+    
+ 
+    
+    
     
     
       public function saveAdminProfile(Request $request)

@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -13,35 +15,29 @@ use App\Profile;
 use App\AdminProfile;
 use App\Teacher;
 use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Support\Facades\Mail;
 
 
 class RegistrationController extends Controller {
 
-    public function store(Request $request)
-    {
-        
-        
+    public function store(Request $request) {
+
+
         $rules = [
             'name' => 'required|min:6',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:6',
-            
-            
         ];
-  
-         $messages = [   'name.required'=>'Please Enter Your Name.',
+
+        $messages = [ 'name.required' => 'Please Enter Your Name.',
 //                        'email.email'=>'Please Enter Valid Email Address.',
-                        'email.required'=>'Please Enter Email Address.',
-                        'password.required'=>'Please enter your password'    
-            
-                  ];
+            'email.required' => 'Please Enter Email Address.',
+            'password.required' => 'Please enter your password'
+        ];
 
-        $validator = Validator::make($request->all(), $rules,$messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
@@ -54,23 +50,21 @@ class RegistrationController extends Controller {
             'password' => bcrypt($request->input['password']),
             'confirmation_code' => $confirmation_code,
             'phone_number' => $request->input('phone_number'),
-            'user_type'=>'student',
+            'user_type' => 'student',
         ]);
 
-//        Mail::send('email.verify', $confirmation_code, function($message) {
-//            $message->to(Input::get('email'), Input::get('name'))
-//                ->subject('Verify your email address');
-//        });
+        Mail::send('email.verify', $confirmation_code, function($message) {
+            $message->to(Input::get('email'),'')
+                ->subject('Verify your email address');
+        });
 
-       
+
         Session::flash('success', 'Thanks for signing up! Please check your email.');
 
-       return Redirect::to('student-registration');
+        return Redirect::to('student-registration');
     }
-    
-    
-     public function profileSave(Request $request)
-    {
+
+    public function profileSave(Request $request) {
         $rules = [
             'state' => 'required',
             'city' => 'required',
@@ -79,47 +73,39 @@ class RegistrationController extends Controller {
             'study_in' => 'required',
             'language_medium' => 'required',
             'message' => 'required|Max:200',
-           
         ];
-  
-         $messages = [   'locality.required'=>'Please Enter Your Locality.',
-                          'study_in.required'=>'Please Enter Your Study Subject.',
-                     
-                  ];
 
-        $validator = Validator::make($request->all(), $rules,$messages);
+        $messages = [ 'locality.required' => 'Please Enter Your Locality.',
+            'study_in.required' => 'Please Enter Your Study Subject.',
+        ];
 
-        if($validator->fails())
-        {
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
-        } 
-        
-        else{
-             
-            
+        } else {
+
+
             Profile::create([
-            'state' => $request->input('state'),
-            'city' => $request->input('city'),
-            'locality' => $request->input('locality'),
-            'subject_tution' => $request->input('subject_tution'),
-            'other_subject' => $request->input('other_subject'),
-            'study_in' => $request->input('study_in'),
-            'language_medium' => $request->input('language_medium'),
-            'message' => $request->input('message'),    
-        ]);
-            
+                'state' => $request->input('state'),
+                'city' => $request->input('city'),
+                'locality' => $request->input('locality'),
+                'subject_tution' => $request->input('subject_tution'),
+                'other_subject' => $request->input('other_subject'),
+                'study_in' => $request->input('study_in'),
+                'language_medium' => $request->input('language_medium'),
+                'message' => $request->input('message'),
+            ]);
         }
-        
+
         Session::flash('success', 'Thanks for Your Profile Registration');
 
-       return Redirect::to('student-registration'); 
+        return Redirect::to('student-registration');
     }
-    
-    
+
     //Teacher profile Information Will be saved
-    
-    public function profileTeacherSave(Request $request)
-    {
+
+    public function profileTeacherSave(Request $request) {
         $rules = [
             'state' => 'required',
             'city' => 'required',
@@ -128,45 +114,40 @@ class RegistrationController extends Controller {
             'experience' => 'required',
             'language_medium' => 'required',
             'message' => 'required|Max:200',
-           
         ];
-  
+
         $messages = [ 'locality.required' => 'Please Enter Your Locality.',
-                      'study_in.required' => 'Please Enter Your Study Subject.',
-                      'experience.required' => 'Please Enter Your Experience years and Where.',
+            'study_in.required' => 'Please Enter Your Study Subject.',
+            'experience.required' => 'Please Enter Your Experience years and Where.',
         ];
 
-        $validator = Validator::make($request->all(), $rules,$messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
-        } 
-        
-        else{
-             
-            
+        } else {
+
+
             Teacher::create([
-            'state' => $request->input('state'),
-            'city' => $request->input('city'),
-            'locality' => $request->input('locality'),
-            'subject_tution' => $request->input('subject_tution'),
-            'other_subject' => $request->input('other_subject'),
-            'experience' => $request->input('experience'),
-            'language_medium' => $request->input('language_medium'),
-            'message' => $request->input('message'),    
-        ]);
-            
+                'state' => $request->input('state'),
+                'city' => $request->input('city'),
+                'locality' => $request->input('locality'),
+                'subject_tution' => $request->input('subject_tution'),
+                'other_subject' => $request->input('other_subject'),
+                'experience' => $request->input('experience'),
+                'language_medium' => $request->input('language_medium'),
+                'message' => $request->input('message'),
+            ]);
         }
-        
+
         Session::flash('success', 'Teacher Profile Saved!');
 
-       return Redirect::to('student-registration'); 
+        return Redirect::to('student-registration');
     }
-    
-    
-    public function storeUserType(Request $request)
-    {
+
+    public function storeUserType(Request $request) {
+        
+        
         $rules = [
             'name' => 'required|min:6',
             'email' => 'required|email|unique:users',
@@ -174,39 +155,35 @@ class RegistrationController extends Controller {
             'phone_number' => 'required',
             'age' => 'required|numeric',
             'gender' => 'required',
-            
         ];
-  
-         $messages = [   'name.required'=>'Please Enter Your Name.',
+
+        $messages = [ 'name.required' => 'Please Enter Your Name.',
 //                        'email.email'=>'Please Enter Valid Email Address.',
-                        'email.required'=>'Please Enter Email Address.',
-                        'password.required'=>'Please enter your password',
-                        'age.required'=>'Please enter your age',
-                       'gender.required'=>'Please Check Your Gender',
-                       'phone_number.required'=>'Please Enter Your Phone Number',
-            
-                  ];
+            'email.required' => 'Please Enter Email Address.',
+            'password.required' => 'Please enter your password',
+            'age.required' => 'Please enter your age',
+            'gender.required' => 'Please Check Your Gender',
+            'phone_number.required' => 'Please Enter Your Phone Number',
+        ];
 
-        $validator = Validator::make($request->all(), $rules,$messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
         $confirmation_code = str_random(30);
 
         //To get User Type
-         $routeType = Route::getFacadeRoot()->current()->uri(); 
-        if($routeType=='register/teacher'){
-            $userType='teacher';
+        $routeType = Route::getFacadeRoot()->current()->uri();
+       
+        if ($routeType == 'saveTeacherProfile') {
+            $userType = 'teacher';
+        } else {
+            $userType = 'admin';
         }
-        else{
-            $userType='admin';
-            
-        }
-        
-        
+
+
         User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -215,75 +192,96 @@ class RegistrationController extends Controller {
             'password' => bcrypt($request->input['password']),
             'confirmation_code' => $confirmation_code,
             'phone_number' => $request->input('phone_number'),
-            'user_type'=>$userType,
+            'user_type' => $userType,
         ]);
+        
+        $data = array(
+            
+            'confirmation_code'=>$confirmation_code,
+            'name'=>Input::get('name'),
+        );
 
-//        Mail::send('email.verify', $confirmation_code, function($message) {
-//            $message->to(Input::get('email'), Input::get('name'))
-//                ->subject('Verify your email address');
-//        });
+        Mail::send('email.verify', $data, function($message) {
+                   $message->to(Input::get('email'), Input::get('name'))
+                           ->subject('Verify your email address');
+               });
 
-       
+
         Session::flash('success', 'Sir,Thanks for signing up! Please check your email.');
 
-       return Redirect::to('student-registration');
+        return Redirect::to('student-registration');
     }
-    
+
     /**
      * To Save Admin Data
      * 
      * @return, the Success message after successful insertion.
      * 
      * 
-     * **/
-    
- 
-    
-    
-    
-    
-      public function saveAdminProfile(Request $request)
-    {
+     * * */
+    public function saveAdminProfile(Request $request) {
         $rules = [
             'state' => 'required',
             'city' => 'required',
             'locality' => 'required',
             'message' => 'required|Max:200',
-           
         ];
-  
-         $messages = [   'locality.required'=>'Please Enter Your Locality.',
-                          
-                     
-                  ];
 
-        $validator = Validator::make($request->all(), $rules,$messages);
+        $messages = [ 'locality.required' => 'Please Enter Your Locality.',
+        ];
 
-        if($validator->fails())
-        {
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
-        } 
-        
-        else{
-           
-            
+        } else {
+
+
             AdminProfile::create([
-            'state' => $request->input('state'),
-            'city' => $request->input('city'),
-            'locality' => $request->input('locality'),
-            'message' => $request->input('message'),    
-        ]);
-            
+                'state' => $request->input('state'),
+                'city' => $request->input('city'),
+                'locality' => $request->input('locality'),
+                'message' => $request->input('message'),
+            ]);
         }
-        
+
         Session::flash('success', 'Admin profile Saved!!');
 
-       return Redirect::to('student-registration'); 
+        return Redirect::to('student-registration');
     }
     
     
+    public function testEmail() {
+        $confirmation_code = 'The Data Will Send';
+         Mail::send('email.verify',array('confirmation_code'=>$confirmation_code), function($message) {
+            $message->to('iqbal.greenlife@gmail.com','iqbal.sust@gmail.com')
+                ->subject('Verify your email address');
+        });
+    }
     
+      public function confirm($confirmation_code)
+    {
+        if( ! $confirmation_code)
+        {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $user = User::whereConfirmationCode($confirmation_code)->first();
+
+        if ( ! $user)
+        {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $user->confirmed = 1;
+        $user->confirmation_code = null;
+        $user->save();
+
+        Session::flash('success','You have successfully verified your account.');
+
+        return Redirect::to('login');
+    }
+
     
-    
-    
+
 }

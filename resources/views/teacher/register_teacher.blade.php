@@ -48,7 +48,7 @@
 
         <div class="form-group">
             <label for="exampleInputEmail1">Phone No:</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Phone No" name="phone_number">
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Phone No" name="phone_number" value="{{old('phone_number')}}">
             @if ($errors->has('phone_number')) <p class="text-danger">{{ $errors->first('phone_number') }}</p> @endif
         </div>
 

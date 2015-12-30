@@ -11,7 +11,22 @@
 |
 */
 
-Route::get('/','Auth\AuthController@getRegister');
+
+/**
+ * The navgation button for redirection
+ * accordign to visitor choice
+ * 
+ * **/
+Route::get('/',function(){
+    
+    return view('home.index');
+    
+});
+
+
+//Route::get('/','Auth\AuthController@getRegister');
+ 
+
 
 // Authentication routes...
 Route::post('auth/login', 'Auth\AuthController@Login');
@@ -35,12 +50,18 @@ Route::get('/student-profile',function(){
     return view('profile.student-profile');
 });
 
+
+/*********************Teacher Area*********************/
+
 Route::get('/register/teacher',function(){
     
     return view('teacher.register_teacher');
 });
 Route::post('/saveTeacherProfile','RegistrationController@storeUserType');
 
+
+
+/**************Admin Area****************/
 Route::get('/register/area-admin',function(){
     
     return view('admin.register_admin');
@@ -66,4 +87,13 @@ Route::get('/teacher-profile',function(){
     return view('profile.teacher-profile');
 });
 
-Route::post('/saveTeacherProfile','RegistrationController@profileTeacherSave');
+//Route::post('/saveTeacherProfile','RegistrationController@profileTeacherSave');
+
+/****Testting SOme Code Snippet***/
+
+Route::get('emailtest', 'RegistrationController@testEmail');
+
+    /*Email Verification with confirmation code*/
+
+Route::get('register/verify/{confirmationCode}','RegistrationController@confirm');
+

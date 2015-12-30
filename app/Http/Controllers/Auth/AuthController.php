@@ -89,7 +89,7 @@ class AuthController extends Controller
         }
         
         
-        $credentials = ['email' => $request->input('email'), 'password' => $request->input('password')];
+        $credentials = ['email' => $request->input('email'), 'password' => $request->input('password'),'confirmed' => 1,'user_type'=>$request->input('userType')];
 
         if (!Auth::attempt($credentials)) {
 

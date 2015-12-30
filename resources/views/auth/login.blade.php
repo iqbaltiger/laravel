@@ -5,7 +5,11 @@
 <center><h1 class="text-danger">Login</h1><br/></center>
 <div class="col-md-3"></div>
 <div class="col-md-9">
-    
+        @if(Session::has('success'))
+    <div class="alert alert-success">
+        <h2>{{ Session::get('success') }}</h2>
+    </div>
+@endif
 <form class="form-horizontal" method="POST" action="/auth/login" novalidate>
     {!! csrf_field() !!}
     

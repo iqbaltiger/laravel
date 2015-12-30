@@ -251,13 +251,7 @@ class RegistrationController extends Controller {
     }
     
     
-    public function testEmail() {
-        $confirmation_code = 'The Data Will Send';
-         Mail::send('email.verify',array('confirmation_code'=>$confirmation_code), function($message) {
-            $message->to('iqbal.greenlife@gmail.com','iqbal.sust@gmail.com')
-                ->subject('Verify your email address');
-        });
-    }
+  
     
       public function confirm($confirmation_code)
     {

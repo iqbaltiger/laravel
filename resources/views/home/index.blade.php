@@ -8,9 +8,9 @@
     <h2>Teacher/Student Signup</h2>
     
     
-    <a href='/register/teacher' class="btn btn-primary">I need a Teacher</a>
-    <a href='/student-registration' class="btn btn-success">I want to Teach</a>
     
+    <a href='/register/teacher' class="btn btn-success">I want to Teach</a>
+    <a href='/student-registration' class="btn btn-primary">I need a Teacher</a>
 </div>
 
 <div class="col-md-3">

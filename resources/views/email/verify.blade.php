@@ -1,26 +1,17 @@
-Hello {{$name}},
-Welcome to {{ URL::to('/')}}
-Click here to get yourself registered.
-If this mail is not intended to you please Click here.
-
-Thanks for creating an account with the verification demo app.
-            Please follow the link below to verify your email address
-            {{ URL::to('register/verify/' . $confirmation_code) }}.<br/>
-            
-            
-            
-            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-US">
     <head>
         <meta charset="utf-8">
     </head>
     <body>
-        <h2>Hello </h2>
-        <h3>My Name:{{$name}}</h3>
+        <h2>Hello {{$name}},</h2>
+       
         <div>
-            Thanks for creating an account with the verification demo app.
-            Please follow the link below to verify your email address
-            {{ URL::to('register/verify/' . $confirmation_code) }}.<br/>
+            <p>Welcome to {{ URL::to('/')}}</p>
+            <p>Click here to get yourself registered.</p>
+            <p>Thanks for creating an account with the verification demo app.</p>
+            <p>Please follow the link below to verify your email address</p>
+            <p>{{ URL::to('register/verify/' . $confirmation_code) }}.<br/></p>
 
         </div>
 

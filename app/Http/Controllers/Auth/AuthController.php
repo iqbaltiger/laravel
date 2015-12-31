@@ -89,10 +89,12 @@ class AuthController extends Controller
         }
         
         
-        $credentials = ['email' => $request->input('email'), 'password' => $request->input('password'),'confirmed' => 1,'user_type'=>$request->input('userType')];
+        $credentials = ['email' => $request->input('email'),'user_type'=>$request->input('userType')];
 
+        echo Auth::attempt($credentials).'hihihih'; exit;
+        
         if (!Auth::attempt($credentials)) {
-
+            
            
              return redirect()->back();
         } else {

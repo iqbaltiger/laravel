@@ -26,7 +26,8 @@
         "App\\Providers\\AppServiceProvider",
         "App\\Providers\\AuthServiceProvider",
         "App\\Providers\\EventServiceProvider",
-        "App\\Providers\\RouteServiceProvider"
+        "App\\Providers\\RouteServiceProvider",
+        "Caffeinated\\Modules\\ModulesServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -43,7 +44,8 @@
         "App\\Providers\\AppServiceProvider",
         "App\\Providers\\AuthServiceProvider",
         "App\\Providers\\EventServiceProvider",
-        "App\\Providers\\RouteServiceProvider"
+        "App\\Providers\\RouteServiceProvider",
+        "Caffeinated\\Modules\\ModulesServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",

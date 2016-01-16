@@ -91,7 +91,7 @@ class AuthController extends Controller
         
         $credentials = ['email' => $request->input('email'),'user_type'=>$request->input('userType')];
 
-        echo Auth::attempt($credentials).'hihihih'; exit;
+        var_dump(Auth::attempt($credentials)); exit;
         
         if (!Auth::attempt($credentials)) {
             
